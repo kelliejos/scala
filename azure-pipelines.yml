@@ -14,17 +14,18 @@ jobs:
     vmImage: 'Ubuntu-16.04'
   steps:
   - script: | 
-      ./admin/init.sh
+      ./init.sh
       pwd
       ls
-      source ./scripts/common
-      source ./scripts/bootstrap_fun
+      source ../scripts/common
+      source ../scripts/bootstrap_fun
       determineScalaVersion
       removeExistingBuilds $integrationRepoUrl
       if [ ! -z "$STARR_REF" ]; then buildStarr; fi
       buildLocker
       buildQuick
       triggerScalaDist
+    workingDirectory: $(Build.SourcesDirectory)/admin
   displayName: 'Full Bootstrap and Publish'
 - job: PR_Build
   dependsOn: Install_Dependencies
