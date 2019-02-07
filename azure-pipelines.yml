@@ -8,7 +8,6 @@ trigger:
 
 jobs:
 - job: CI_Build
-  dependsOn: Install_Dependencies
   condition: ne(variables['BUILD_REASON'], 'PullRequest')
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -28,7 +27,6 @@ jobs:
     workingDirectory: $(Build.SourcesDirectory)/admin
   displayName: 'Full Bootstrap and Publish'
 - job: PR_Build
-  dependsOn: Install_Dependencies
   condition: eq(variables['BUILD_REASON'], 'PullRequest')
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -42,7 +40,6 @@ jobs:
       sbt -Dstarr.version=$STARR -warn setupValidateTest test:compile info testAll
   displayName: 'pull request validation (w/ mini-bootstrap)'
 - job: Build_With_Jekyll
-  dependsOn: Install_Dependencies
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
