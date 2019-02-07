@@ -25,7 +25,9 @@ jobs:
     vmImage: 'Ubuntu-16.04'
   steps:
   - script: | 
-      ./init.sh 
+      ./init.sh
+      pwd
+      ls
       source ./scripts/common
       source ./scripts/bootstrap_fun
       determineScalaVersion
