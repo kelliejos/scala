@@ -33,7 +33,7 @@ jobs:
     vmImage: 'Ubuntu-16.04'
   steps:
   - script: | 
-      ./init.sh 
+      ./admin/init.sh 
       source ./scripts/common
       source ./scripts/bootstrap_fun
       sbt -warn setupPublishCore generateBuildCharacterPropertiesFile headerCheck publishLocal
@@ -47,7 +47,7 @@ jobs:
   - script: | 
       pwd
       ls
-      'if [ "$BUILD_REASON" = "PullRequest" ]; then (cd admin && ./init.sh); fi'
+      'if [ "$BUILD_REASON" = "PullRequest" ]; then (./admin/init.sh); fi'
       bundle exec jekyll build -s spec/ -d build/spec
   displayName: 'build the spec using jekyll'
 
