@@ -101,19 +101,6 @@ function generateRepositoriesConfig() {
 EOF
 }
 
-
-# https://github.com/travis-ci/docs-travis-ci-com/issues/949
-travis_fold_start() {
-  echo ""
-  echo -e "travis_fold:start:$1\033[33;1m$2\033[0m"
-}
-
-travis_fold_end() {
-  echo -e "\ntravis_fold:end:$1\r"
-  echo ""
-}
-
-
 ##### git
 gfxd() {
   git clean -fxd # TESTING
@@ -165,11 +152,9 @@ st_stagingRepoClose() {
 #### sbt tools
 
 clearIvyCache() {
-  travis_fold_start clearIvy "Clearing ivy cache"
   rm -fv $IVY2_DIR/exclude_classifiers $IVY2_DIR/exclude_classifiers.lock
   if [ -d $IVY2_DIR ]; then find $IVY2_DIR -name "*compiler-interface*$SCALA_VER*" | xargs rm -rfv; fi
   if [ -d $HOME/.sbt ]; then find $HOME/.sbt -name "*compiler-interface*$SCALA_VER*" | xargs rm -rfv; fi
-  travis_fold_end clearIvy
 }
 
 #### travis

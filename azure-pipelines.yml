@@ -7,27 +7,27 @@ trigger:
 - master
 
 jobs:
-- job: CI_Build
-  condition: ne(variables['BUILD_REASON'], 'PullRequest')
-  pool:
-    vmImage: 'Ubuntu-16.04'
-  steps:
-  - script: | 
-      ./init.sh
-      pwd
-      ls
-      source ../scripts/common
-      source ../scripts/bootstrap_fun
-      determineScalaVersion
-      removeExistingBuilds $integrationRepoUrl
-      if [ ! -z "$STARR_REF" ]; then buildStarr; fi
-      buildLocker
-      buildQuick
-      triggerScalaDist
-    workingDirectory: $(Build.SourcesDirectory)/admin
-  displayName: 'Full Bootstrap and Publish'
+# - job: CI_Build
+#   condition: ne(variables['BUILD_REASON'], 'PullRequest')
+#   pool:
+#     vmImage: 'Ubuntu-16.04'
+#   steps:
+#   - script: | 
+#       ./init.sh
+#       pwd
+#       ls
+#       source ../scripts/common
+#       source ../scripts/bootstrap_fun
+#       determineScalaVersion
+#       removeExistingBuilds $integrationRepoUrl
+#       if [ ! -z "$STARR_REF" ]; then buildStarr; fi
+#       buildLocker
+#       buildQuick
+#       triggerScalaDist
+#     workingDirectory: $(Build.SourcesDirectory)/admin
+#   displayName: 'Full Bootstrap and Publish'
 - job: PR_Build
-  condition: eq(variables['BUILD_REASON'], 'PullRequest')
+  # condition: eq(variables['BUILD_REASON'], 'PullRequest')
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
