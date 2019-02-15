@@ -33,9 +33,6 @@ jobs:
     vmImage: 'Ubuntu-16.04'
   steps:
   - script: | 
-      ./admin/init.sh 
-      source ./scripts/common
-      source ./scripts/bootstrap_fun
       sbt -warn setupPublishCore generateBuildCharacterPropertiesFile headerCheck publishLocal
       STARR=`cat buildcharacter.properties | grep ^maven.version.number | cut -d= -f2` && echo $STARR
       sbt -Dstarr.version=$STARR -warn setupValidateTest test:compile info testAll
